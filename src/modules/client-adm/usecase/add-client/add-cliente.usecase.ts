@@ -10,7 +10,8 @@ export default class AddClientUseCase {
     }
 
     async execute(input: AddClientInputDto): Promise<AddClienteOutputDto> {
-        const props = {            
+        const props = {    
+            id: new Id(input.id) || new Id(),        
             name: input.name,
             email: input.email,
             address: input.address,
