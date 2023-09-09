@@ -1,0 +1,19 @@
+import ClientAdmFacade from "../facade/client-adm.facade";
+import ClientRepository from "../repository/client.repository";
+import AddClientUseCase from "../usecase/add-client/add-cliente.usecase";
+import FindClientUseCase from "../usecase/find-client/find-client.usecase";
+
+export default class ClientAdmFacadeFactory {
+    static create() {
+        const repository = new ClientRepository();
+        const findUseCase = new FindClientUseCase(repository);
+        const addUseCase = new AddClientUseCase(repository);
+
+        const facade = new ClientAdmFacade({
+            addUseCase: addUseCase,
+            findUseCase: findUseCase,
+        });
+
+        return facade;
+    }
+}
