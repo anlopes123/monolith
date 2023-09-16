@@ -47,4 +47,17 @@ import Id from "../../@shared/domain/value-object/id.value-object";
                 this.decline();
             }
         }
+
+        get id() : Id {
+            return this.id;
+        }
+        get orderId(): string {
+            return this._orderId;
+        }
+        get amout(): number {
+            return this._amount;
+        }
+        get status(): string {
+            return this._status;
+        }
     }
