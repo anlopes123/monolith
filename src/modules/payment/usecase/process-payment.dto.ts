@@ -1,5 +1,5 @@
 export interface ProcessPaymentInputDto {
-    oderId: string;
+    orderId: string;
     amount: number;
 }
 

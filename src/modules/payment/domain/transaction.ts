@@ -41,7 +41,7 @@ import Id from "../../@shared/domain/value-object/id.value-object";
         }
 
         process(): void {
-            if(this.amount >= 100) {
+            if(this._amount >= 100) {
                 this.aprove();
             } else {
                 this.decline();
@@ -49,7 +49,7 @@ import Id from "../../@shared/domain/value-object/id.value-object";
         }
 
         get id() : Id {
-            return this.id;
+            return this._id;
         }
         get orderId(): string {
             return this._orderId;
