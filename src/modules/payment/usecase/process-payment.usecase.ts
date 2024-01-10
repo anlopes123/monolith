@@ -1,6 +1,6 @@
 import UseCaseInterface from "../../@shared/domain/usecase/use-case.interface";
 import Transaction from "../domain/transaction";
-import PaymentGetway from "../gatway/payment.gatway";
+import PaymentGetway from "../gateway/payment.gatway";
 import { ProcessPaymentInputDto, ProcessPaymentOutputDto } from "./process-payment.dto";
 
 export default class ProcessPaymentUseCase implements UseCaseInterface {
@@ -11,7 +11,7 @@ export default class ProcessPaymentUseCase implements UseCaseInterface {
     async execute(input: ProcessPaymentInputDto): Promise<ProcessPaymentOutputDto> {
         const  transaction = new Transaction({
             amount: input.amount,
-            orderId: input.oderId,  
+            orderId: input.orderId,  
         });
 
         transaction.process();
@@ -21,7 +21,7 @@ export default class ProcessPaymentUseCase implements UseCaseInterface {
         return {
             transactionId: persistTransaction.id.id,
             orderId: persistTransaction.orderId,
-            amount: persistTransaction.amout,
+            amount: persistTransaction.amount,
             status: transaction.status,
             createdAt: persistTransaction.createdAt,
             updatedAt: persistTransaction.updatedAt,

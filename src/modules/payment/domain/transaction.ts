@@ -4,7 +4,7 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 
     type TransactionProps = {
         id?: Id;
-        amount: nunber;
+        amount: number;
         orderId: string;
         status?: string;
         createdAt?: Date;
@@ -49,12 +49,12 @@ import Id from "../../@shared/domain/value-object/id.value-object";
         }
 
         get id() : Id {
-            return this._id;
+            return super.id;
         }
         get orderId(): string {
             return this._orderId;
         }
-        get amout(): number {
+        get amount(): number {
             return this._amount;
         }
         get status(): string {
