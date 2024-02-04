@@ -34,7 +34,7 @@ export default class InvoiceItems extends BaseEntity implements AggregateRoot {
         return this._price;
     }
 
-    total(): number {
+    totalItems(): number {
         return this._quantity*this._price;
     }
 }

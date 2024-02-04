@@ -3,7 +3,7 @@ import AggregateRoot from "../../@shared/domain/entity/agregate-root.interface";
 import BaseEntity from "../../@shared/domain/entity/base.entity";
 import Address from "../../@shared/domain/value-object/address.value-object";
 import Id from "../../@shared/domain/value-object/id.value-object";
-import InvoiceItems from "./InvoiceItems";
+import InvoiceItems from "./InvoiceItems.entity";
 
 
 type InvoiceProps = {
@@ -17,7 +17,7 @@ type InvoiceProps = {
 }
 
 
-export default class Invoices extends BaseEntity implements AggregateRoot {
+export default class Invoice extends BaseEntity implements AggregateRoot {
     private _name: string;    
     private _document: string;
     private _address: Address;
@@ -58,12 +58,15 @@ export default class Invoices extends BaseEntity implements AggregateRoot {
         return this._document;
     }
 
-    get address: Address {
+    get address(): Address {
         return this._address;
     }
+    get items(): InvoiceItems[] {
+        return this._items;
+    }
 
-    total(): number {
-        return this._items.reduce((acc, item)=> acc+item.total(), 0);
+    get total(): number {
+        return this._items.reduce((acc, item)=> acc+item.totalItems(), 0);
     }
 
 }
