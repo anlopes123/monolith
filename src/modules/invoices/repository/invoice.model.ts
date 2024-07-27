@@ -28,7 +28,5 @@ export default class InvoiceModel extends Model {
 
     @HasMany(() => invoiceItemsModel)
     declare items: invoiceItemsModel[];
-
-    @Column({allowNull: false})
-    declare total: number;
+    
 }

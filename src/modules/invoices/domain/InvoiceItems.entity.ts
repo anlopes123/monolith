@@ -20,8 +20,6 @@ export default class InvoiceItems extends BaseEntity implements AggregateRoot {
         this._price = props.price        
     }
 
-    
-
     get name(): string {
         return this._name;        
     }
