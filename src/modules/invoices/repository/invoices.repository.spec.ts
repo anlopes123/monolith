@@ -20,6 +20,7 @@ describe("Invoides Test Case", ()=> {
     afterEach(async () => {
         await sequelize.close();
     });
+    
   
     it("Should find a invoice", async() =>{
         const invoiceRepository = new InvoiceRepository();
@@ -39,9 +40,9 @@ describe("Invoides Test Case", ()=> {
                 name: "invoice-item 1",
                 quantity: 1,
                 price: 12.50,
-            }],           
-
-
+            }],          
+        },{
+            include: [{model: invoiceItemsModel}]
         });
 
         const findinvoide = await InvoiceModel.findOne({
@@ -59,11 +60,11 @@ describe("Invoides Test Case", ()=> {
         expect(findInvoiceRepository.address.complement).toEqual(findinvoide.complement);   
         expect(findInvoiceRepository.address.number).toEqual(findinvoide.number);   
         expect(findInvoiceRepository.address.state).toEqual(findinvoide.state);   
-        expect(findInvoiceRepository.address.zipCode).toEqual(findinvoide.zipCode);   
-        
-        
-
-
+        expect(findInvoiceRepository.address.zipCode).toEqual(findinvoide.zipCode);          
+        expect(findInvoiceRepository.items[0].id.id).toEqual(findinvoide.items[0].id);
+        expect(findInvoiceRepository.items[0].name).toEqual(findinvoide.items[0].name);
+        expect(findInvoiceRepository.items[0].quantity).toEqual(findinvoide.items[0].quantity);
+        expect(findInvoiceRepository.items[0].price).toEqual(findinvoide.items[0].price);
 
     })
 })
