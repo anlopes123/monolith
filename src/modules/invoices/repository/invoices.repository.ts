@@ -35,6 +35,46 @@ export default class InvoiceRepository implements InvoiceGateway {
             
     }
     async generate(invoice: Invoice): Promise<Invoice>{
-        return undefined;
+       const invoiceModeOutPut = await InvoiceModel.create({
+            id: invoice.id.id,
+            name: invoice.name,
+            document: invoice.document,
+            number: invoice.address.number,
+            street: invoice.address.street,
+            complement: invoice.address.complement,
+            city: invoice.address.city,
+            state: invoice.address.state,
+            zipCode: invoice.address.zipCode, 
+            items:  invoice.items.map((item)=>({
+                id: item.id.id,
+                name: item.name,
+                price: item.price,               
+                quantity: item.quantity,
+              })),
+        },{
+            include: [{model: invoiceItemsModel}]
+        });
+
+        return new Invoice({
+            id: new Id(invoiceModeOutPut.id),
+            name: invoiceModeOutPut.name,
+            document: invoiceModeOutPut.document,
+            address: {
+                street: invoiceModeOutPut.street,
+                number: invoiceModeOutPut.number,
+                complement: invoiceModeOutPut.complement,
+                city: invoiceModeOutPut.city, 
+                state: invoiceModeOutPut.state,
+                zipCode: invoiceModeOutPut.zipCode
+            },
+            items: invoiceModeOutPut.items.map((item) =>({
+                id : new Id(item.id),
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+            })),
+        })
     } ;
+
+
 }

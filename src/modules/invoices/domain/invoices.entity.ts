@@ -66,7 +66,7 @@ export default class Invoice extends BaseEntity implements AggregateRoot {
     }
 
     get total(): number {
-        return this._items.reduce((acc, item)=> acc+item.totalItems(), 0);
+        return this._items.reduce((acc, item)=> acc+(item.price*item.quantity), 0);
     }
 
 }

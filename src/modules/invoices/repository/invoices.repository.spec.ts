@@ -1,4 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
+import Id from "../../@shared/domain/value-object/id.value-object";
+import Invoice from "../domain/invoices.entity";
 import invoiceItemsModel from "./invoice-items.model";
 import InvoiceModel from "./invoice.model";
 import InvoiceRepository from "./invoices.repository";
@@ -50,21 +52,61 @@ describe("Invoides Test Case", ()=> {
             include: ["items"],
         })
 
-        const findInvoiceRepository = await invoiceRepository.find("1");
+        const invoice = await invoiceRepository.find("1");
 
-        expect(findInvoiceRepository.id.id).toEqual(findinvoide.id);   
-        expect(findInvoiceRepository.name).toEqual(findinvoide.name);   
-        expect(findInvoiceRepository.document).toEqual(findinvoide.document);   
-        expect(findInvoiceRepository.address.city).toEqual(findinvoide.city);   
-        expect(findInvoiceRepository.address.street).toEqual(findinvoide.street);   
-        expect(findInvoiceRepository.address.complement).toEqual(findinvoide.complement);   
-        expect(findInvoiceRepository.address.number).toEqual(findinvoide.number);   
-        expect(findInvoiceRepository.address.state).toEqual(findinvoide.state);   
-        expect(findInvoiceRepository.address.zipCode).toEqual(findinvoide.zipCode);          
-        expect(findInvoiceRepository.items[0].id.id).toEqual(findinvoide.items[0].id);
-        expect(findInvoiceRepository.items[0].name).toEqual(findinvoide.items[0].name);
-        expect(findInvoiceRepository.items[0].quantity).toEqual(findinvoide.items[0].quantity);
-        expect(findInvoiceRepository.items[0].price).toEqual(findinvoide.items[0].price);
+        expect(invoice.id.id).toEqual(findinvoide.id);   
+        expect(invoice.name).toEqual(findinvoide.name);   
+        expect(invoice.document).toEqual(findinvoide.document);   
+        expect(invoice.address.city).toEqual(findinvoide.city);   
+        expect(invoice.address.street).toEqual(findinvoide.street);   
+        expect(invoice.address.complement).toEqual(findinvoide.complement);   
+        expect(invoice.address.number).toEqual(findinvoide.number);   
+        expect(invoice.address.state).toEqual(findinvoide.state);   
+        expect(invoice.address.zipCode).toEqual(findinvoide.zipCode);          
+        expect(invoice.items[0].id.id).toEqual(findinvoide.items[0].id);
+        expect(invoice.items[0].name).toEqual(findinvoide.items[0].name);
+        expect(invoice.items[0].quantity).toEqual(findinvoide.items[0].quantity);
+        expect(invoice.items[0].price).toEqual(findinvoide.items[0].price);
 
-    })
+    });
+    it("should generate a invoice", async() => {
+        const invoiceRepository = new InvoiceRepository();
+
+        const invoice = new Invoice({
+            id: new Id("1"),
+            name: "Procuect 1", 
+            address: {
+                street: "street 1",
+                number: "123",  
+                complement: "Complement 1",
+                city: "City 1", 
+                state: "State 1", 
+                zipCode: "Zip Code 7477895",
+            }, 
+            document: 'Document 1',
+            items: [{
+               id: new Id("1"),
+               name: "Product 1",
+               quantity: 1,
+               price:  12.6,
+            }],
+
+        });
+
+        const findinvoide = await invoiceRepository.generate(invoice);
+  
+        expect(invoice.id.id).toEqual(findinvoide.id.id);   
+        expect(invoice.name).toEqual(findinvoide.name);   
+        expect(invoice.document).toEqual(findinvoide.document);   
+        expect(invoice.address.city).toEqual(findinvoide.address.city);   
+        expect(invoice.address.street).toEqual(findinvoide.address.street);   
+        expect(invoice.address.complement).toEqual(findinvoide.address.complement);   
+        expect(invoice.address.number).toEqual(findinvoide.address.number);   
+        expect(invoice.address.state).toEqual(findinvoide.address.state);   
+        expect(invoice.address.zipCode).toEqual(findinvoide.address.zipCode);          
+        expect(invoice.items[0].id.id).toEqual(findinvoide.items[0].id.id);
+        expect(invoice.items[0].name).toEqual(findinvoide.items[0].name);
+        expect(invoice.items[0].quantity).toEqual(findinvoide.items[0].quantity);
+        expect(invoice.items[0].price).toEqual(findinvoide.items[0].price);
+    });
 })
