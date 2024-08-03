@@ -69,6 +69,7 @@ describe("InvoiceFacade TestCase", () => {
     it("Should generate invoice", async()=>{
 
         const input = {
+            id: "1",
             name: "invoice 1",
             document: "123456",
             street: "rua x",
@@ -86,13 +87,13 @@ describe("InvoiceFacade TestCase", () => {
         };
         const invoiceFacade = InvoiceFacadeFactory.create();
 
-        const output = invoiceFacade.generate(input);
+        const output = await invoiceFacade.generate(input);
         
         expect(output).toBeDefined();
-        expect(output.name).toBe("Invoice 1");
+        expect(output.name).toBe("invoice 1");
         expect(output.document).toBe("123456");
         expect(output.street).toBe("rua x");
-        expect(output.number).toBe("1");
+        expect(output.number).toBe("456");
         expect(output.complement).toBe("próximo ao hospital");
         expect(output.city).toBe("Aparecida de Goiânia");
         expect(output.state).toBe("Goiás");

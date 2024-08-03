@@ -67,6 +67,7 @@ export interface GenerateInvoiceFacadeOutputDto {
     total: number;
 }
 
+
 export default interface InvoiceFacadeInterface {
     generate(generate: GenerateInvoiceFacadeInputDto) : Promise<GenerateInvoiceFacadeOutputDto>;
     find(findInput: FindInvoiceFacadeInputDto): Promise<FindInvoiceFacadeOutPutDTO>;

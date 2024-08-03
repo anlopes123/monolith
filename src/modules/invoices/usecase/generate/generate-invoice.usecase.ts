@@ -21,7 +21,7 @@ export default class GenerateInvoiceUseCase {
             },
             document: input.document,
             items: input.items.map((item)=>({
-                id: item.id,
+                id: new Id(item.id),
                 name: item.name,
                 quantity: item.quantity,
                 price: item.price
@@ -32,7 +32,7 @@ export default class GenerateInvoiceUseCase {
         const output = await this.invoiceRepository.generate(invoice);
 
         return {
-            id:  output.id,
+            id:  output.id.id,
             name: output.name,
             document: output.document,
             number: output.address.number,

@@ -10,7 +10,7 @@ import InvoiceModel from "./invoice.model";
 })
 export default class invoiceItemsModel extends Model{
     @PrimaryKey
-    @Column
+    @Column({allowNull: false})
     declare id: string;       
 
     @ForeignKey(()=> InvoiceModel)
