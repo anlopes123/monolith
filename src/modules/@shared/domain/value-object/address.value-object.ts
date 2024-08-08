@@ -1,5 +1,14 @@
 import ValueObject from "./value-object.interface";
 
+type AddreesProp = {
+   number: string;
+   street: string;
+   complement: string;
+   city: string;
+   state: string;
+   zipcode: string;
+}
+
 export default class Address implements ValueObject {
    private _number: string;
    private _street: string;
@@ -8,6 +17,14 @@ export default class Address implements ValueObject {
    private _state: string;
    private _zipCode: string;
 
+   constructor(props: AddreesProp) {
+      this._number = props.number;
+      this._street = props.street;
+      this._complement = props.complement;
+      this._city = props.city;
+      this._state = props.state;
+      this._zipCode = props.zipcode; 
+   }
    
    get street(): string {
       return this._street;
@@ -27,4 +44,6 @@ export default class Address implements ValueObject {
    get zipCode(): string {
       return this._zipCode;
    } 
+
+
 }

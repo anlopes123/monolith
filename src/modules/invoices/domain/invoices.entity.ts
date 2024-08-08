@@ -33,7 +33,7 @@ export default class Invoice extends BaseEntity implements AggregateRoot {
     } 
 
     validate(): boolean {
-        if(this._id.id.length === 0) {
+        if(this.id.id.length === 0) {
             throw new Error("Id is required");
         }
       

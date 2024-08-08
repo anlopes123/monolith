@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
+import Address from "../../@shared/domain/value-object/address.value-object";
 import Id from "../../@shared/domain/value-object/id.value-object";
+import InvoiceItems from "../domain/InvoiceItems.entity";
 import Invoice from "../domain/invoices.entity";
 import invoiceItemsModel from "./invoice-items.model";
 import InvoiceModel from "./invoice.model";
@@ -72,24 +74,25 @@ describe("Invoides Test Case", ()=> {
     it("should generate a invoice", async() => {
         const invoiceRepository = new InvoiceRepository();
 
+        
         const invoice = new Invoice({
             id: new Id("1"),
             name: "Procuect 1", 
-            address: {
-                street: "street 1",
-                number: "123",  
+            document: 'Document 1',
+            address: new Address({               
+                number: '123',  
+                street: 'street 1',
                 complement: "Complement 1",
                 city: "City 1", 
                 state: "State 1", 
-                zipCode: "Zip Code 7477895",
-            }, 
-            document: 'Document 1',
-            items: [{
+                zipcode: "Zip Code 7477895",
+            }), 
+            items: [new InvoiceItems({
                id: new Id("1"),
                name: "Product 1",
                quantity: 1,
                price:  12.6,
-            }],
+            })],
 
         });
 

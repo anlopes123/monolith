@@ -1,4 +1,6 @@
+import Address from "../../../@shared/domain/value-object/address.value-object";
 import Id from "../../../@shared/domain/value-object/id.value-object";
+import InvoiceItems from "../../domain/InvoiceItems.entity";
 import Invoice from "../../domain/invoices.entity";
 import InvoiceGateway from "../../gateway/invoice.gatway";
 import { GenerateInvoiceUseCaseInputDto, GenerateInvoiceUseCaseOutputDto } from "./generate.invoice.dto";
@@ -11,21 +13,21 @@ export default class GenerateInvoiceUseCase {
         const invoice = new Invoice({ 
            id: new Id(input.id),            
            name : input.name,
-           address: {
+           address: new Address( {
                 number: input.number,
                 street: input.street,
                 complement: input.complement,
                 city: input.city,
                 state: input.state,
-                zipCode: input.zipCode,
-            },
+                zipcode: input.zipCode,
+            }),
             document: input.document,
-            items: input.items.map((item)=>({
+            items: input.items.map((item)=>(new InvoiceItems({
                 id: new Id(item.id),
                 name: item.name,
                 quantity: item.quantity,
                 price: item.price
-            }))
+            })))
 
         });
 

@@ -16,21 +16,21 @@ export default class InvoiceRepository implements InvoiceGateway {
         return  new Invoice({
             id: new Id(invoiceModel.id), 
             name: invoiceModel.name,
-            address: {
+            address: new Address( {
                 street: invoiceModel.street,
                 number: invoiceModel.number,
                 complement: invoiceModel.complement,
                 city: invoiceModel.city, 
                 state: invoiceModel.state, 
-                zipCode: invoiceModel.zipCode,
-            }, 
+                zipcode: invoiceModel.zipCode,
+            }), 
             document: invoiceModel.document, 
-            items: invoiceModel.items.map((item)=>({
+            items: invoiceModel.items.map((item)=>(new InvoiceItems({
                 id: new Id(item.id),
                 name: item.name,
                 price: item.price,               
                 quantity: item.quantity,
-              })),
+              }))),
         })
             
     }
@@ -59,20 +59,20 @@ export default class InvoiceRepository implements InvoiceGateway {
             id: new Id(invoiceModeOutPut.id),
             name: invoiceModeOutPut.name,
             document: invoiceModeOutPut.document,
-            address: {
+            address: new Address( {
                 street: invoiceModeOutPut.street,
                 number: invoiceModeOutPut.number,
                 complement: invoiceModeOutPut.complement,
                 city: invoiceModeOutPut.city, 
                 state: invoiceModeOutPut.state,
-                zipCode: invoiceModeOutPut.zipCode
-            },
-            items: invoiceModeOutPut.items.map((item) =>({
+                zipcode: invoiceModeOutPut.zipCode
+            }),
+            items: invoiceModeOutPut.items.map((item) =>(new InvoiceItems({
                 id : new Id(item.id),
                 name: item.name,
                 price: item.price,
                 quantity: item.quantity,
-            })),
+            }))),
         })
     } ;
 
